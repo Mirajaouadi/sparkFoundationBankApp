@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <title>Bank Application</title>
+   <meta content="" name="num" />
+    <meta content="" name="keywords" />
+
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon" />
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
+    />
+
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet" />
+    <link
+      href="assets/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="assets/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      href="assets/vendor/glightbox/css/glightbox.min.css"
+      rel="stylesheet"
+    />
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet" />
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+
+    <!-- Template Main CSS File -->
+    <link href="assets/css/style.css" rel="stylesheet" />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="assets/vendor/fontawesome-free/css/all.min.css"
+    />
+    <link rel="stylesheet" href="assets/css/profile.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"
+    />
+   
+  </head>
+
+  <body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top">
+      <div
+        class="container-fluid container-xl d-flex align-items-center justify-content-between"
+      >
+        <a href="index.html" class="logo d-flex align-items-center">
+          <img src="assets/img/logo.png" alt="" />
+          <span>Online Bank</span>
+        </a>
+        <nav id="navbar" class="navbar">
+          <ul>
+            <li>
+              <a class="nav-link scrollto" href="index.html">Home</a>
+            </li>
+            <li>
+              <a class="nav-link scrollto" href="customers.html">Customers</a>
+            </li>
+            <li>
+              <a class="nav-link scrollto" href="transactions.html"
+                >Transactions</a
+              >
+            </li>
+          </ul>
+          <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav>
+        <!-- .navbar -->
+      </div>
+    </header>
+    <!-- End Header -->
+
+    <!-- ======= Hero Section ======= -->
+
+    <section>
+      <br /><br /><br /><br />
+      <div class="container d-flex justify-content-center mt-5">
+        <div class="card">
+          <div class="top-container">
+            <img
+              src="assets/img/profil.png"
+              class="img-fluid profile-image mx-2"
+              width="70"
+            />
+            <div class="text-center">
+              <h5 class="name" id="name"></h5>
+              <p class="mail" id="email"></p>
+              <p class="mail" id="num"><i class="fa fa-phone"></i> </p>
+            </div>
+          </div>
+
+          <div
+            class="middle-container d-flex justify-content-between align-items-center mt-3 p-2"
+          >
+            <div class="dollar-div px-3">
+              <div class="round-div"><i class="fa fa-dollar dollar"> </i></div>
+            </div>
+            <div class="d-flex flex-column text-right mr-2">
+              <span class="current-balance">Current Balance</span>
+              <span class="amount" id="balance"
+                ><span class="dollar-sign">$</span></span
+              >
+            </div>
+          </div>
+
+          <div class="text-center mt-4">
+            <a type="button" class="btn btn-primary m-auto" href="addTrans.html" onclick="addInfo()"
+              >Make a transaction
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+    <script>
+        function addInfo()
+        {
+            var url_string = window.location.href;
+            var url = new URL(url_string);
+            var c = url.searchParams.get("id");
+            var url3 = "http://127.0.0.1:3000/user1s/" + c;
+            var xhr3 = new XMLHttpRequest();
+           xhr3.open("GET", url3, true);
+            xhr3.onload = function () {
+             var user1s = JSON.parse(xhr3.responseText);
+             if (xhr3.readyState == 4 && xhr3.status == "200") {
+                localStorage.setItem( "sender",user1s.name);
+                localStorage.setItem("balance",user1s.balance);
+                localStorage.setItem("senderId",user1s._id);
+
+        
+        } else {
+          console.log("error");
+        }
+      };
+      xhr3.send(null);
+            
+        }
+    </script>
+    <script>
+      var url_string = window.location.href;
+      var url = new URL(url_string);
+      var c = url.searchParams.get("id");
+      console.log(c);
+      var url3 = "http://127.0.0.1:3000/user1s/" + c;
+      var xhr3 = new XMLHttpRequest();
+      xhr3.open("GET", url3, true);
+      xhr3.onload = function () {
+        var user1s = JSON.parse(xhr3.responseText);
+        if (xhr3.readyState == 4 && xhr3.status == "200") {
+          console.table(user1s);
+          document.getElementById("name").innerHTML = user1s.name;
+          document.getElementById("num").innerHTML += user1s.num;
+          document.getElementById("balance").innerHTML = user1s.balance;
+          document.getElementById("email").innerHTML = user1s.email;
+        } else {
+          console.log("error");
+        }
+      };
+      xhr3.send(null);
+    </script>
+  </body>
+</html>

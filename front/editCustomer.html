@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <title>Bank Application</title>
+    <script src="https://static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+    <meta content="" name="num" />
+    <meta content="" name="keywords" />
+
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon" />
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
+    />
+
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet" />
+    <link
+      href="assets/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="assets/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      href="assets/vendor/glightbox/css/glightbox.min.css"
+      rel="stylesheet"
+    />
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet" />
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+
+    <!-- Template Main CSS File -->
+    <link href="assets/css/style.css" rel="stylesheet" />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="assets/vendor/fontawesome-free/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top">
+      <div
+        class="container-fluid container-xl d-flex align-items-center justify-content-between"
+      >
+        <a href="index.html" class="logo d-flex align-items-center">
+          <img src="assets/img/logo.png" alt="" />
+          <span>Online Bank</span>
+        </a>
+        <nav id="navbar" class="navbar">
+          <ul>
+            <li>
+              <a class="nav-link scrollto " href="index.html">Home</a>
+            </li>
+            <li>
+              <a class="nav-link scrollto" href="customers.html">Customers</a>
+            </li>
+            <li>
+              <a class="nav-link scrollto " href="transactions.html"
+                >Transactions</a
+              >
+            </li>
+          </ul>
+          <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav>
+        <!-- .navbar -->
+      </div>
+    </header>
+    <!-- End Header -->
+
+    <!-- ======= Hero Section ======= -->
+
+    <section class="content mt-5">
+        <div class="container-fluid">
+          <!-- Main row -->
+          <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+              <!-- general form elements -->
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h3 class="card-img">
+                    Customer
+                  </h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form onsubmit="return false">
+                  <div class="card-body">
+                    
+                    <div class="form-group my-3">
+                      <label for="name" >Name</label>
+                      <input
+                        type="text"
+                        class="form-control my-2"
+                        id="name"
+                        placeholder="Enter Name" />
+                    </div>
+                    <div class="form-group  my-3">
+                      <label for="email">Email</label>
+                      <input
+                        type="text"
+                        class="form-control my-2"
+                        id="email"
+                        placeholder="Enter email"
+                      />
+                    </div>
+                    <div class="form-group  my-3">
+                      <label for="balance">Balance</label>
+                      <input
+                        type="text"
+                        class="form-control my-2"
+                        id="balance"
+                        placeholder="Enter balance"
+                      />
+                    </div>
+                    <div class="form-group  my-3">
+                        <label for="num">Phone Number</label>
+                        <input
+                          type="text"
+                          class="form-control my-2"
+                          id="num"
+                          placeholder="Enter your phone Number"
+                        />
+                      </div>
+                      <br>
+                     
+
+                  <div class="card-footer text-center">
+                    <button
+                      onclick="update()"
+                      type="submit"
+                      class="btn btn-primary">
+                      Update
+                    </button>
+                  </div>
+                </form>
+              </div>
+              <!-- /.card -->
+            </div>
+          </div>
+          <!-- /.row (main row) -->
+        </div>
+        <!-- /.container-fluid -->
+      </section>
+
+    
+
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+    
+
+
+
+      <script>
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var c = url.searchParams.get("id");
+        console.log(c);
+        var url3 = "http://127.0.0.1:3000/user1s/" + c;
+        var xhr3 = new XMLHttpRequest();
+        xhr3.open("GET", url3, true);
+        xhr3.onload = function () {
+          var user1s = JSON.parse(xhr3.responseText);
+          if (xhr3.readyState == 4 && xhr3.status == "200") {
+            console.table(user1s);
+            document.getElementById("name").value = user1s.name;
+            document.getElementById("num").value = user1s.num;
+            document.getElementById("balance").value = user1s.balance;
+            document.getElementById("email").value = user1s.email;
+             } else {
+            console.log("error");
+          }
+        };
+        xhr3.send(null);
+      </script>
+      <script>
+        function update() {
+          var url_string = window.location.href;
+          var url = new URL(url_string);
+          var c = url.searchParams.get("id");
+          console.log(c);
+  
+          // update a user1
+          var url4 = "http://127.0.0.1:3000/user1s/" + c;
+          var data = {};
+          data.email = document.getElementById("email").value;
+          data.balance = document.getElementById("balance").value;
+          data.num = document.getElementById("num").value;
+          data.name = document.getElementById("name").value;
+  
+          var json = JSON.stringify(data); // Convertir la variable de données en JSON.
+          var xhr = new XMLHttpRequest();
+          xhr.open("PUT", url4, true);
+          xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+  
+          // Load les données à partir de la serveur -> début connection
+          xhr.onload = function () {
+            var response = JSON.parse(xhr.responseText); // Conversion des données en format json
+            // Si le status retourné par le serveur est 200
+            if (xhr.readyState == 4 && xhr.status == "200") {
+              //alert("Classe Added");
+              location.replace("customers.html");
+            } else {
+              alert(response.message);
+              console.table(response);
+            }
+          };
+          xhr.send(json);
+        }
+      </script>
+  </body>
+</html>
